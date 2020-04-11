@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %} Payback period {% endblock %}
+
+{% block content %}
+
+<hr>
+	{% if indicators_list %}
+	
+		{% for i in indicators_list %}
+			<a> {{i}} </a>
+			<br>
+		{% endfor %}
+	{% else %}
+		No indicators find
+	{% endif %}
+<hr>
+<hr>
+
+<form action ="{% url 'indicators:add_indicators' %}" method="POST">
+	{% csrf_token %}
+	<input type="number" default=1 required placeholder="Месяц" max="12" min="1" name = "month">
+	<input type="number" default=2020 required placeholder="Год" min="2020" name = "year"> <br>
+	<input type="number" default=0.0 required placeholder="Чистый доход" name = "income">
+	
+	<button type="submit"> Добавить показатель </button>
+</form>
+
+<p> Период окупаемости проекта:  {{ payback }}</p>
+{% endblock %}
